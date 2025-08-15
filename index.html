@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fit&Light Marmitas • Comida fitness, leve e saborosa</title>
+  <meta name="description" content="Marmitas fitness artesanais em Goiânia. Cardápio semanal, planos flexíveis, atendimento via WhatsApp e retirada ou delivery parceiro." />
+  <meta property="og:title" content="Fit&Light Marmitas" />
+  <meta property="og:description" content="Comida leve, ingredientes selecionados e sabor de verdade." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🥗</text></svg>">
+  <style>
+    :root{
+      --bg:#0f172a; /* slate-900 */
+      --card:#111827e6; /* neutral-900/90 */
+      --text:#e5e7eb; /* zinc-200 */
+      --muted:#a1a1aa; /* zinc-400 */
+      --brand:#22c55e; /* green-500 */
+      --brand-2:#10b981; /* emerald-500 */
+      --accent:#f59e0b; /* amber-500 */
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background: radial-gradient(1200px 600px at 80% -10%, #062b1a 0%, transparent 60%),
+      radial-gradient(900px 500px at 10% -10%, #1f2937 0%, transparent 55%),
+      var(--bg);
+      line-height:1.6; overflow-x:hidden;
+    }
+    a{color:var(--brand); text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{width:min(1100px,92%); margin-inline:auto}
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(8px);
+      background:linear-gradient(180deg, rgba(2,6,23,.9), rgba(2,6,23,.6)); border-bottom:1px solid rgba(255,255,255,.06)
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px}
+    .brand .logo{width:38px; height:38px; border-radius:12px; display:grid; place-items:center; background:linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow:var(--shadow)}
+    .brand h1{font-size:1.1rem; margin:0; letter-spacing:.2px}
+    .menu{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+    .menu a{color:var(--text); opacity:.9}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:10px 16px; border-radius:999px; background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#052e16; font-weight:700; box-shadow:var(--shadow)}
+    .btn.secondary{background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.12)}
+
+    /* Hero */
+    .hero{position:relative; padding:74px 0 40px}
+    .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:30px; align-items:center}
+    .kicker{display:inline-flex; align-items:center; gap:8px; color:#c7f9d4; background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.35); padding:6px 10px; border-radius:999px; font-size:.85rem}
+    .hero h2{font-size:clamp(1.8rem, 4vw, 3rem); margin:12px 0 10px; line-height:1.15}
+    .hero p{color:var(--muted); margin:0 0 18px}
+    .hero .cta{display:flex; gap:12px; flex-wrap:wrap}
+    .card{background:linear-gradient(180deg, rgba(17,24,39,.65), rgba(17,24,39,.35)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow)}
+    .dish-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+    .dish{position:relative; overflow:hidden}
+    .dish img{height:180px; width:100%; object-fit:cover; filter:saturate(1.05)}
+    .badge{position:absolute; left:10px; top:10px; background:rgba(2,6,23,.7); border:1px solid rgba(255,255,255,.12); padding:6px 10px; border-radius:999px; font-size:.8rem}
+
+    /* Section */
+    section{padding:50px 0}
+    .section-title{display:flex; align-items:end; justify-content:space-between; margin-bottom:16px}
+    .section-title h3{margin:0; font-size:1.6rem}
+    .muted{color:var(--muted)}
+
+    /* Planos */
+    .plans{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    .plan{padding:22px}
+    .plan h4{margin:0 0 6px}
+    .price{font-weight:800; font-size:1.6rem; color:#d1fae5}
+    .plan ul{margin:12px 0 0; padding:0 0 0 18px}
+
+    /* Cardápio */
+    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    .item{overflow:hidden}
+    .item img{height:180px; width:100%; object-fit:cover}
+    .item .body{padding:16px}
+    .item .body h5{margin:0 0 6px}
+    .tag{display:inline-flex; gap:6px; align-items:center; border:1px solid rgba(255,255,255,.15); padding:4px 10px; border-radius:999px; font-size:.8rem; color:#86efac; margin-right:6px}
+
+    /* Depoimentos */
+    .testimonials{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    .quote{padding:18px; position:relative}
+    .quote p{margin:0}
+    .quote .who{margin-top:10px; color:#cbd5e1; font-weight:600}
+
+    /* Empresa */
+    .about{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    .about article{padding:18px}
+
+    /* Contato */
+    form{display:grid; gap:12px}
+    input, textarea{width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:#0b1220; color:var(--text)}
+
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    .grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px}
+
+    .footer{padding:24px 0; border-top:1px solid rgba(255,255,255,.06); color:#a1a1aa}
+
+    /* WhatsApp bar */
+    .wabar{position:fixed; left:50%; transform:translateX(-50%); bottom:16px; z-index:60; display:flex; gap:10px}
+    .wabar a{display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#052e16; padding:12px 16px; border-radius:999px; box-shadow:var(--shadow); font-weight:800}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero-grid{grid-template-columns:1fr}
+      .plans,.cards,.testimonials,.about,.grid-2,.grid-3{grid-template-columns:1fr}
+      .dish-grid{grid-template-columns:1fr 1fr}
+    }
+  </style>
+  <script>
+    // Pequenas melhorias: salvar lead no localStorage e gerar link do WhatsApp com mensagem
+    function waLink(msg){
+      const phone = '5562993759849';
+      return `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
+    }
+    function handleLead(e){
+      e.preventDefault();
+      const name=document.querySelector('#name').value.trim();
+      const phone=document.querySelector('#phone').value.trim();
+      const goal=document.querySelector('#goal').value.trim();
+      localStorage.setItem('lead_fit', JSON.stringify({name,phone,goal, ts:Date.now()}));
+      const text = `Olá! Sou ${name}. Meu objetivo é: ${goal}. Meu contato: ${phone}. Gostaria de saber mais sobre as marmitas.`;
+      window.open(waLink(text),'_blank');
+    }
+    // Lazy reveal
+    const onReady = (fn)=>document.readyState!=='loading'?fn():document.addEventListener('DOMContentLoaded',fn);
+    onReady(()=>{
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){ e.target.animate([{opacity:0, transform:'translateY(10px)'},{opacity:1, transform:'translateY(0)'}],{duration:600, easing:'ease-out', fill:'both'}); obs.unobserve(e.target) }
+        })
+      },{threshold:.12});
+      document.querySelectorAll('section .card, .item, .quote, .about article').forEach(el=>obs.observe(el));
+    })
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FoodEstablishment",
+    "name": "Fit&Light Marmitas",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Rua 12, Setor Marista",
+      "addressLocality": "Goiânia",
+      "addressRegion": "GO",
+      "postalCode": "74150-120",
+      "addressCountry": "BR"
+    },
+    "servesCuisine": "Saudável, Fitness",
+    "telephone": "+55 62 99375-9849",
+    "url": "https://seusite.github.io/fitlight",
+    "priceRange": "$$",
+    "openingHours": "Mo-Sa 09:00-18:00"
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">🥗</div>
+        <h1>Fit&Light Marmitas</h1>
+      </div>
+      <nav class="menu">
+        <a href="#planos">Planos</a>
+        <a href="#cardapio">Cardápio</a>
+        <a href="#empresa">Empresa</a>
+        <a href="#contato">Contato</a>
+        <a class="btn" href="https://wa.me/5562993759849?text=Quero%20saber%20sobre%20as%20marmitas%20fitness!" target="_blank">Falar no WhatsApp</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="kicker">Novo cardápio semanal • comidas leves</span>
+          <h2>Comida fitness, <span style="color:#86efac">sabor de verdade</span>.</h2>
+          <p>Ingredientes selecionados, proteínas no ponto e acompanhamentos equilibrados. Assinaturas flexíveis e opções avulsas para sua rotina.</p>
+          <div class="cta">
+            <a class="btn" href="#cardapio">Ver cardápio</a>
+            <a class="btn secondary" href="#planos">Conhecer planos</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="dish-grid">
+            <div class="dish"><img alt="bowl saudável" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=900&auto=format&fit=crop"/><span class="badge">Low Carb</span></div>
+            <div class="dish"><img alt="marmita fit" src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=900&auto=format&fit=crop"/><span class="badge">Protein+</span></div>
+            <div class="dish"><img alt="salada fresca" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=900&auto=format&fit=crop"/><span class="badge">Veggie</span></div>
+            <div class="dish"><img alt="frango grelhado" src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=900&auto=format&fit=crop"/><span class="badge">Light</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLANOS -->
+    <section id="planos">
+      <div class="container">
+        <div class="section-title">
+          <h3>Planos & Assinaturas</h3>
+          <p class="muted">Sem fidelidade. Pausable. Troca de pratos liberada.</p>
+        </div>
+        <div class="plans">
+          <div class="card plan">
+            <h4>Start • 5 refeições</h4>
+            <div class="price">R$ 129</div>
+            <ul>
+              <li>Ideal para experimentar a semana</li>
+              <li>Porções de 350–400g</li>
+              <li>1 sobremesa fit cortesia</li>
+            </ul>
+            <p style="margin-top:14px"><a class="btn" href="https://wa.me/5562993759849?text=Quero%20o%20plano%20Start%20(5%20refei%C3%A7%C3%B5es)" target="_blank">Escolher</a></p>
+          </div>
+          <div class="card plan" style="border:1px solid rgba(34,197,94,.5)">
+            <h4>Equilíbrio • 10 refeições</h4>
+            <div class="price">R$ 239</div>
+            <ul>
+              <li>Mais pedido da casa</li>
+              <li>Personalize carbo e salada</li>
+              <li>Entrega 2x na semana</li>
+            </ul>
+            <p style="margin-top:14px"><a class="btn" href="https://wa.me/5562993759849?text=Quero%20o%20plano%20Equil%C3%ADbrio%20(10%20refei%C3%A7%C3%B5es)" target="_blank">Escolher</a></p>
+          </div>
+          <div class="card plan">
+            <h4>Performance • 20 refeições</h4>
+            <div class="price">R$ 449</div>
+            <ul>
+              <li>Foco em resultado e rotina</li>
+              <li>Opção High Protein</li>
+              <li>Suporte nutricional básico</li>
+            </ul>
+            <p style="margin-top:14px"><a class="btn" href="https://wa.me/5562993759849?text=Quero%20o%20plano%20Performance%20(20%20refei%C3%A7%C3%B5es)" target="_blank">Escolher</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARDÁPIO -->
+    <section id="cardapio">
+      <div class="container">
+        <div class="section-title">
+          <h3>Cardápio exemplo</h3>
+          <p class="muted">Monte sua caixa com seus favoritos.</p>
+        </div>
+        <div class="cards">
+          <div class="card item">
+            <img alt="Frango grelhado com batata doce" src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=900&auto=format&fit=crop"/>
+            <div class="body">
+              <h5>Frango grelhado + batata doce + brócolis</h5>
+              <div><span class="tag">35g proteína</span><span class="tag">low fat</span></div>
+              <p class="muted">Temperos naturais, sem fritura.</p>
+            </div>
+          </div>
+          <div class="card item">
+            <img alt="Carne e legumes" src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=900&auto=format&fit=crop"/>
+            <div class="body">
+              <h5>Carne magra + mix de legumes salteados</h5>
+              <div><span class="tag">32g proteína</span><span class="tag">sem glúten</span></div>
+              <p class="muted">Corte selecionado, salteado rápido.</p>
+            </div>
+          </div>
+          <div class="card item">
+            <img alt="Salmão e quinoa" src="https://images.unsplash.com/photo-1543352634-8730f13c9d19?q=80&w=900&auto=format&fit=crop"/>
+            <div class="body">
+              <h5>Salmão ao forno + quinoa + aspargos</h5>
+              <div><span class="tag">Omega 3</span><span class="tag">gourmet</span></div>
+              <p class="muted">Sabor marcante e leveza.</p>
+            </div>
+          </div>
+          <div class="card item">
+            <img alt="Strogonoff fit" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=900&auto=format&fit=crop"/>
+            <div class="body">
+              <h5>Strogonoff fit de frango + arroz integral</h5>
+              <div><span class="tag">sem creme de leite</span><span class="tag">equilíbrio</span></div>
+              <p class="muted">Molho leve, sem excesso de sódio.</p>
+            </div>
+          </div>
+          <div class="card item">
+            <img alt="Vegetariano" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=900&auto=format&fit=crop"/>
+            <div class="body">
+              <h5>Veggie bowl: grão-de-bico + abóbora + couve</h5>
+              <div><span class="tag">rico em fibras</span><span class="tag">veg</span></div>
+              <p class="muted">100% vegetal e super saciedade.</p>
+            </div>
+          </div>
+          <div class="card item">
+            <img alt="Sobremesa fit" src="https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=900&auto=format&fit=crop"/>
+            <div class="body">
+              <h5>Mousse de cacau 70% com castanhas</h5>
+              <div><span class="tag">sem açúcar</span><span class="tag">low carb</span></div>
+              <p class="muted">Final feliz sem culpa.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEPOIMENTOS -->
+    <section>
+      <div class="container">
+        <div class="section-title"><h3>Quem provou, aprovou</h3><p class="muted">Feedbacks reais de clientes.</p></div>
+        <div class="testimonials">
+          <div class="card quote"><p>“Sabor idêntico à comida caseira, sem pesar. Chega sempre fresquinho.”</p><div class="who">Débora L.</div></div>
+          <div class="card quote"><p>“Plano de 10 refeições salvou minha rotina. Atendem pelo WhatsApp rapidinho.”</p><div class="who">Rafael P.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMPRESA -->
+    <section id="empresa">
+      <div class="container">
+        <div class="section-title"><h3>Sobre a empresa</h3><p class="muted">Missão, Visão e Valores</p></div>
+        <div class="about">
+          <article class="card">
+            <h4>Missão</h4>
+            <p>Facilitar a alimentação saudável no dia a dia, com marmitas saborosas, práticas e nutricionalmente equilibradas.</p>
+            <h4 style="margin-top:10px">Visão</h4>
+            <p>Ser referência regional em alimentação leve, com atendimento humano e ágil.</p>
+            <h4 style="margin-top:10px">Valores</h4>
+            <p>Qualidade, transparência, respeito ao cliente, higiene e sustentabilidade.</p>
+          </article>
+          <article class="card">
+            <h4>Informações legais</h4>
+            <p>CNPJ: 00.000.000/0001-00 • Inscrição Municipal: 000000</p>
+            <p>Endereço: Rua 12, Setor Marista, Goiânia - GO</p>
+            <p>Atendimento: Seg a Sáb, 09h às 18h</p>
+            <p>Parcerias de entrega: motoboy parceiro / apps</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato">
+      <div class="container">
+        <div class="section-title"><h3>Contato</h3><p class="muted">Peça uma sugestão de cardápio para seu objetivo</p></div>
+        <div class="grid-2">
+          <div class="card" style="padding:18px">
+            <form onsubmit="handleLead(event)">
+              <div class="grid-2">
+                <input id="name" required placeholder="Seu nome" />
+                <input id="phone" required placeholder="WhatsApp" />
+              </div>
+              <textarea id="goal" rows="4" placeholder="Ex.: perder peso, ganhar massa, sem lactose..." required></textarea>
+              <button class="btn" type="submit">Enviar pelo WhatsApp</button>
+            </form>
+          </div>
+          <div class="card" style="overflow:hidden">
+            <iframe title="Mapa" width="100%" height="320" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps?q=Rua%2012%20Setor%20Marista%20Goi%C3%A2nia&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="wabar">
+    <a href="https://wa.me/5562993759849?text=Ol%C3%A1!%20Quero%20fazer%20meu%20pedido%20de%20marmitas%20fitness." target="_blank">💬 WhatsApp agora</a>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap">
+      <div>© <span id="y"></span> Fit&Light Marmitas. Todos os direitos reservados.</div>
+      <div>Goiânia • <a href="#empresa">Licenças e informações</a></div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
+</html>
